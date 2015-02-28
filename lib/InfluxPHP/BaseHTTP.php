@@ -44,6 +44,7 @@ class BaseHTTP
     protected $user;
     protected $pass;
     protected $base;
+    protected $timeout;
     protected $timePrecision = 's';
     protected $children = array();
 
@@ -60,6 +61,7 @@ class BaseHTTP
         $this->pass   = $c->pass;
         $this->port   = $c->port;
         $this->host   = $c->host;
+        $this->timeout = $c->timeout;
         $this->timePrecision = $c->timePrecision;
         $c->children[] = $this;
     }
@@ -71,6 +73,9 @@ class BaseHTTP
         $url .= "?" . http_build_query($args);
         $ch   = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        if($this->timeout !== null){
+        	curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
+        }
         return $ch;
     }
 

@@ -55,3 +55,18 @@ foreach ($db->query("SELECT * FROM foo;") as $row) {
     var_dump($row, $row->time);
 }
 ```
+
+Options
+-------
+
+- **Timeout** to prevent slow queries from hanging your program:
+
+```php
+$client = new \crodas\InfluxPHP\Client(
+   "localhost" /*default*/,
+   8086 /* default */,
+   "root" /* by default */,
+   "root" /* by default */,
+   60 // 60-second timeout (CURLOPT_TIMEOUT)
+);
+```
