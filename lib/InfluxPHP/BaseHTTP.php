@@ -75,7 +75,6 @@ class BaseHTTP
         $url .= "?" . http_build_query($args);
         $ch   = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        var_dump($this->timeout);
         if($this->timeout !== null){
             curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
         }
