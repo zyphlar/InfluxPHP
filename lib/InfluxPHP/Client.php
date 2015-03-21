@@ -44,14 +44,16 @@ class Client extends BaseHTTP
     protected $user;
     protected $pass;
     protected $timeout;
+    protected $connectTimeout;
 
-    public function __construct($host = "localhost", $port = 8086, $u = 'root', $p = 'root', $timeout = null)
+    public function __construct($host = "localhost", $port = 8086, $u = 'root', $p = 'root', $timeout = null, $connectTimeout = null)
     {
         $this->host = $host;
         $this->port = $port;
         $this->user = $u;
         $this->pass = $p;
         $this->timeout = $timeout;
+        $this->connectTimeout = $connectTimeout;
     }
 
     public function deleteDatabase($name)

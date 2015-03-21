@@ -45,6 +45,7 @@ class BaseHTTP
     protected $pass;
     protected $base;
     protected $timeout;
+    protected $connectTimeout;
     protected $timePrecision = 's';
     protected $children = array();
 
@@ -62,6 +63,7 @@ class BaseHTTP
         $this->port   = $c->port;
         $this->host   = $c->host;
         $this->timeout = $c->timeout;
+        $this->connectTimeout = $c->connectTimeout;
         $this->timePrecision = $c->timePrecision;
         $c->children[] = $this;
     }
@@ -73,8 +75,12 @@ class BaseHTTP
         $url .= "?" . http_build_query($args);
         $ch   = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        var_dump($this->timeout);
         if($this->timeout !== null){
-        	curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
+            curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
+        }
+        if($this->connectTimeout !== null){
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->connectTimeout);
         }
         return $ch;
     }
